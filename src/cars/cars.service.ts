@@ -21,7 +21,19 @@ export class CarsService {
     return this.carModel.find({ _id: id });
   }
 
+  async findAllBrands() {
+    return this.carModel.distinct('brand').exec();
+  }
+
+  async findAllFrom(brand: string) {
+    return this.carModel.find({ brand: brand }).exec();
+  }
+
   remove(id: string) {
     return this.carModel.findOneAndDelete({ _id: id });
+  }
+
+  async deleteAllCars(): Promise<any> {
+    return this.carModel.deleteMany({}).exec();
   }
 }

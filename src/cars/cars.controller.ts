@@ -56,7 +56,7 @@ export class CarsController {
     }
   }
 
-  @Get(':id')
+  @Get('id/:id')
   async findOne(@Res() response: Response, @Param('id') id: string) {
     try {
       const result = await this.carService.findOne(id);
@@ -74,7 +74,43 @@ export class CarsController {
     }
   }
 
-  @Delete(':id')
+  @Get('brands')
+  async findAllBrands(@Res() response: Response) {
+    try {
+      const result = await this.carService.findAllBrands();
+      return response.status(HttpStatus.OK).json({
+        message: '',
+        error: false,
+        data: result,
+      });
+    } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: [error.message],
+        error: true,
+        data: null,
+      });
+    }
+  }
+
+  @Get('brand/:brand')
+  async findAllFrom(@Res() response: Response, @Param('brand') brand: string) {
+    try {
+      const result = await this.carService.findAllFrom(brand);
+      return response.status(HttpStatus.OK).json({
+        message: '',
+        error: false,
+        data: result,
+      });
+    } catch (error) {
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: [error.message],
+        error: true,
+        data: null,
+      });
+    }
+  }
+
+  @Delete('id/:id')
   async remove(@Res() response: Response, @Param('id') id: string) {
     try {
       const result = await this.carService.remove(id);
@@ -89,5 +125,10 @@ export class CarsController {
         data: null,
       });
     }
+  }
+
+  @Delete('deleteAll')
+  async deleteAll() {
+    return this.carService.deleteAllCars();
   }
 }
