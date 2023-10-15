@@ -3,14 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CarsModule } from './cars/cars.module';
+import { config } from 'config';
+
+const mongoURI = config.mongoURI;
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://honghaibui1192:khongtheketnoi@badatenbank.wuvcnjq.mongodb.net/?retryWrites=true&w=majority',
-    ),
-    CarsModule,
-  ],
+  imports: [MongooseModule.forRoot(mongoURI), CarsModule],
   controllers: [AppController],
   providers: [AppService],
 })
