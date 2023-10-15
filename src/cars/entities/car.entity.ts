@@ -1,16 +1,15 @@
-// car.model.ts
-import { Document } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
 export type CarDocument = Car & Document;
 
 @Schema()
 export class Car {
-  @Prop()
+  @Prop({ required: true })
   brand: string;
 
-  @Prop()
-  carname: string;
+  @Prop({ required: true })
+  name: string;
 
   @Prop()
   price: number;
@@ -22,7 +21,7 @@ export class Car {
   availability: boolean;
 
   @Prop()
-  ID: number;
+  iD: string;
 
   @Prop()
   count: number;
